@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* AYANA P Portfolio Design System
+   Dark theme with cyan/teal accents
+   All colors in HSL
+*/
+
+@layer base {
+  :root {
+    /* Dark slate background palette */
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+
+    /* Card surfaces with subtle elevation */
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Primary: Vibrant Cyan/Teal */
+    --primary: 174 72% 50%;
+    --primary-foreground: 222 47% 6%;
+
+    /* Secondary: Muted slate */
+    --secondary: 222 30% 14%;
+    --secondary-foreground: 210 40% 85%;
+
+    /* Muted elements */
+    --muted: 222 30% 12%;
+    --muted-foreground: 215 20% 55%;
+
+    /* Accent: Slightly different cyan */
+    --accent: 186 70% 50%;
+    --accent-foreground: 222 47% 6%;
+
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Borders and inputs */
+    --border: 222 30% 18%;
+    --input: 222 30% 18%;
+    --ring: 174 72% 50%;
+
+    --radius: 0.75rem;
+
+    /* Custom gradient colors */
+    --gradient-start: 174 72% 50%;
+    --gradient-end: 186 70% 60%;
+    --glow-color: 174 72% 50%;
+
+    /* Sidebar (keeping for compatibility) */
+    --sidebar-background: 222 47% 8%;
+    --sidebar-foreground: 210 40% 85%;
+    --sidebar-primary: 174 72% 50%;
+    --sidebar-primary-foreground: 222 47% 6%;
+    --sidebar-accent: 222 30% 14%;
+    --sidebar-accent-foreground: 210 40% 85%;
+    --sidebar-border: 222 30% 18%;
+    --sidebar-ring: 174 72% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+}
+
+@layer components {
+  /* Gradient text utility */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+  }
+
+  /* Glow effect for accent elements */
+  .glow {
+    box-shadow: 0 0 20px hsl(var(--glow-color) / 0.3),
+                0 0 40px hsl(var(--glow-color) / 0.15);
+  }
+
+  .glow-sm {
+    box-shadow: 0 0 10px hsl(var(--glow-color) / 0.2),
+                0 0 20px hsl(var(--glow-color) / 0.1);
+  }
+
+  /* Glass morphism card */
+  .glass-card {
+    @apply bg-card/60 backdrop-blur-xl border border-border/50;
+  }
+
+  /* Section container */
+  .section-container {
+    @apply max-w-7xl mx-auto px-6 py-20 md:py-28;
+  }
+
+  /* Monospace accent text */
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Animated underline */
+  .animated-underline {
+    @apply relative;
+  }
+
+  .animated-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+  }
+
+  .animated-underline:hover::after {
+    @apply w-full;
+  }
+
+  /* Skill badge */
+  .skill-badge {
+    @apply px-3 py-1.5 rounded-lg bg-secondary text-secondary-foreground text-sm font-medium 
+           border border-border/50 transition-all duration-300
+           hover:border-primary/50 hover:bg-secondary/80;
+  }
+
+  /* Project card hover effect */
+  .project-card {
+    @apply glass-card rounded-xl p-6 transition-all duration-500
+           hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5
+           hover:-translate-y-1;
+  }
+
+  /* Timeline dot */
+  .timeline-dot {
+    @apply w-3 h-3 rounded-full bg-primary glow-sm;
+  }
+}
+
+@layer utilities {
+  /* Gradient border utility */
+  .gradient-border {
+    position: relative;
+    background: hsl(var(--card));
+    border-radius: var(--radius);
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+}
